@@ -1,0 +1,114 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Choose your product.</h1>
+        </div>
+    </section>
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-12" th:if="${products.size() > 0}">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Product name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Categories</th>
+                            <th scope="col">Manufacturer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${products}" class="product">
+                            <td th:text="${product.getName()}"></td>
+                            <td th:text="${product.getDescription()}"></td>
+                            <td th:text="${product.getPrice()}"></td>
+                            <td th:text="${product.getQuantity()}"></td>
+                            <td>
+                                <th:block th:each="c : ${product.getCategories()}">
+                                    <table>
+                                        <tr th:text="${c.getName()}"></tr>
+                                    </table>
+                                </th:block>
+                            </td>
+                            <td th:text="${product.getManufacturer() != null}
+                            ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
+                            <td class="text-right">
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <form th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
+                                          th:method="DELETE">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger delete-product">
+                                            <i class="fa fa-trash">Delete</i>
+                                        </button>
+                                    </form>
+                                </th:block>
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a th:href="@{'/products/edit-form/{id}' (id=${product.getId()})}"
+                                       class="btn btn-sm btn-info edit-product">
+                                        <i class="fa fa-trash">Edit</i>
+                                    </a>
+                                </th:block>
+                                <form action="/selectProduct"
+                                      th:method="GET"
+                                      sec:authorize="isAuthenticated()">
+                                    <input name="productName" th:value="${product.getName()}" hidden>
+                                    <button type="submit">Order product</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="/products/add-form" class="btn btn-block btn-dark add-product-btn">
+                            Add new product
+                        </a>
+                    </div>
+                </div>
+            </div>
+<!--            <ul>-->
+<!--                <li th:each="item : ${products}">-->
+<!--                    &lt;!&ndash;            <h3 th:text="${item.getDescription()}"></h3>&ndash;&gt;-->
+<!--                    <form method="get" action="/selectProduct">-->
+<!--                        <input name="color" th:value="${item.getName()}" hidden>-->
+<!--                        <h4 th:text="${item.getName()}"></h4>-->
+<!--                        <button type="submit">Order product</button>-->
+<!--                    </form>-->
+<!--                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                        <form method="post" th:action="@{/products/delete/{id}(id=${item.getId()})}">-->
+<!--                            <button-->
+<!--                                    style="background-color: red"-->
+<!--                                    type="submit">-->
+<!--                                x-->
+<!--                            </button>-->
+<!--                        </form>-->
+<!--                    </th:block>-->
+<!--                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+
+<!--                        <form method="get" th:action="@{'/products/edit-form/{id}'(id=${item.getId()})}">-->
+<!--                            <button type="submit" style="background-color: orange">Edit</button>-->
+<!--                        </form>-->
+<!--                    </th:block>-->
+<!--                    <br/>-->
+<!--                </li>-->
+<!--            </ul>-->
+
+<!--            <div class="col mb-3">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-sm-12 col-md-12">-->
+<!--                        <a href="/products/add-form" class="btn btn-block btn-light">Add new product</a>-->
+<!--                        <br/>-->
+<!--                        <a href="/orders" class="btn btn-block btn-light">See the orders</a>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>

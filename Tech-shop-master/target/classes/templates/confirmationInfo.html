@@ -1,0 +1,40 @@
+<div lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Order confirmation</h1>
+        </div>
+    </section>
+    <section>
+        <table>
+            <tr>
+                <th colspan="2">
+                    Your Order Status
+                </th>
+            </tr>
+            <tr>
+                <td><b>Client Name </b></td>
+                <td th:text="${#session.getAttribute('username')}"></td>
+            </tr>
+            <tr>
+                <td><b>Client Address </b></td>
+                <td th:text="${#session.getAttribute('clientAddress')}"></td>
+            </tr>
+            <tr>
+                <td><b>Product Name</b></td>
+                <td th:text="${#session.getAttribute('productName')}"></td>
+            </tr>
+            <tr>
+                <td><b>Payment Type</b></td>
+                <td th:text="${#session.getAttribute('payment')}"></td>
+            </tr>
+        </table>
+        <a href="/orders">Go to orders</a>
+        <form th:method="GET" action="/auth/logout">
+            <div>
+                <button type="submit">Log out</button>
+            </div>
+        </form>
+
+
+    </section>
+</div>

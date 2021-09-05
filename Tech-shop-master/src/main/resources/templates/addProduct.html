@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">CHOOSE YOUR PRODUCT</h1>
+        </div>
+    </section>
+
+    <h1>Add new product</h1>
+
+    <form th:action="@{/products/add}" th:method="post">
+        <input hidden type="number" id="id" name="id" th:value="${product.getId()}"/> <br/>
+
+        <label for="name">Name: </label>
+        <input id="name" name="name" th:value="${product.getName()}"/> <br/>
+
+        <label for="description">Description: </label>
+        <textarea id="description" name="description" th:text="${product.getDescription()}"></textarea> <br/>
+
+        <label for="price">Price: </label>
+        <input id="price" name="price" th:value="${product.getPrice()}"/> <br/>
+
+        <label for="quantity">Quantity: </label>
+        <input id="quantity" name="quantity" th:value="${product.getQuantity()}"/> <br/>
+
+        <label for="categories">Category: </label>
+        <select id="categories" th:name="categoryIds" multiple>
+           <option th:each="c : ${categories}"
+                   th:value="${c.getId()}"
+                     th:text="${c.getName()}"
+
+                    ></option>
+       </select>
+
+        <label for="manufacturer">Manufacturer: </label>
+        <select id="manufacturer" th:name="manufacturerId">
+            <option th:each="m : ${manufacturers}"
+                    th:value="${m.getId()}"
+                    th:text="${m.getName()}"
+
+                    th:selected="${product.getManufacturer() != null && product.getManufacturer().getId() == m.getId()}"
+            ></option>
+        </select>
+
+        <button type="submit">Save product</button>
+        <a href="/products" type="button">Back</a>
+    </form>
+
+</div>

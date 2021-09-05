@@ -1,0 +1,37 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading"> Product Order page - Deliver information </h1>
+        </div>
+    </section>
+
+    <section>
+
+        <form method="POST" action="/ProductOrder">
+            <label for="username">Client Name:</label><br/>
+            <input type="text" id="username" name="username"/><br/>
+            <label for="clientAddress">Delivery Address:</label><br/>
+            <textarea cols="40" rows="3" id="clientAddress" name="clientAddress"></textarea><br/>
+            <button type="submit">Submit</button>
+        </form>
+
+    </section>
+    <aside>
+        <table>
+            <tr>
+                <th colspan="2">
+                    Your Order Status
+                </th>
+            </tr>
+
+            <tr>
+                <td><b>Product:</b></td>
+                <td th:text="${#session.getAttribute('productName')}"></td>
+            </tr>
+            <tr>
+                <td><b>Payment type:</b></td>
+                <td th:text="${#session.getAttribute('payment')}"></td>
+            </tr>
+        </table>
+    </aside>
+</div>

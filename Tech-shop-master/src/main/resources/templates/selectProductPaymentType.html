@@ -1,0 +1,31 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Select payment type</h1>
+        </div>
+    </section>
+
+    <section>
+        <form th:method="POST" action="/selectProduct">
+            <h2>Choose payment type: <h2 th:text="${#session.getAttribute('productName')}"></h2> </h2>
+            <input type="radio" name="payment" value="Cash">Cash<br/>
+            <input type="radio" name="payment" value="Card">Card<br/>
+            <br/>
+            <button type="sumbit">Submit</button>
+        </form>
+    </section>
+    <aside>
+        <table>
+            <tr>
+                <th colspan="2">
+                    Your Order Status
+                </th>
+            </tr>
+            <tr>
+                <td><b>Product:</b></td>
+                <td th:text="${#session.getAttribute('productName')}"></td>
+            </tr>
+        </table>
+    </aside>
+
+</div>
